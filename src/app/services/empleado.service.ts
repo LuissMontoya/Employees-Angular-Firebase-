@@ -17,4 +17,8 @@ export class EmpleadoService {
       .collection('Empleados', (ref) => ref.orderBy('fechaCreacion', 'asc'))
       .snapshotChanges();
   }
+
+  eliminarEmpleado(id: string): Promise<any>{
+    return this.firestore.collection('Empleados').doc(id).delete();
+  }
 }
