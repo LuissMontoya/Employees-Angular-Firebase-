@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Injectable } from '@angular/core';
 
@@ -9,5 +10,11 @@ export class EmpleadoService {
 
   agregarEmpleado(empleado: any): Promise<any> {
     return this.firestore.collection('Empleados').add(empleado);
+  }
+
+  getEmpleados(): Observable<any> {
+    return this.firestore
+      .collection('Empleados', (ref) => ref.orderBy('fechaCreacion', 'asc'))
+      .snapshotChanges();
   }
 }

@@ -2,6 +2,7 @@ import { EmpleadoService } from './../../services/empleado.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-empleado',
@@ -11,11 +12,14 @@ import { Router } from '@angular/router';
 export class CreateEmpleadoComponent implements OnInit {
   createEmpleado: FormGroup;
   submitted = false;
+  loading = false;
+
 
   constructor(
     private fb: FormBuilder,
     private _EmpleadoService: EmpleadoService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.createEmpleado = this.fb.group({
       nombre: ['', Validators.required],
@@ -40,13 +44,21 @@ export class CreateEmpleadoComponent implements OnInit {
       fechaCreacion: new Date(),
       fechaActualizacion: new Date(),
     };
+
+    this.loading = true;
+
     this._EmpleadoService
       .agregarEmpleado(empleado)
       .then(() => {
         this.router.navigate(['/list-empleados']);
-        console.log('Empleado registrado con Éxito!');
+        this.toastr.success(
+          'Empleado registrado con Éxito!',
+          'Empleado Registrado!',
+          { positionClass: 'toast-bottom-right' }
+        );
       })
       .catch((error) => {
+        this.loading = false;
         console.log('Error: ', error);
       });
   }
