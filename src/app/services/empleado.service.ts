@@ -21,4 +21,12 @@ export class EmpleadoService {
   eliminarEmpleado(id: string): Promise<any>{
     return this.firestore.collection('Empleados').doc(id).delete();
   }
+
+  getEmpleado(id: string): Observable<any>{
+    return this.firestore.collection('Empleados').doc(id).snapshotChanges();
+  }
+
+  actualizarEmpleado(id: string, data: any):Promise<any>{
+    return this.firestore.collection('Empleados').doc(id).update(data);
+  }
 }

@@ -21,7 +21,7 @@
             <td>{{ empleado.documento }}</td>
             <td>{{ empleado.salario | currency}}.000</td>
             <td>
-              <i class="fas fa-edit fa-lg text-info mr-2"></i>
+              <i [routerLink]="['/editEmpleado/', empleado.id]" class="fas fa-edit fa-lg text-info mr-2"></i>
               <i (click)="eliminarEmpleado(empleado.id)" class="fas fa-trash-alt text-danger"></i>
             </td>
           </tr>
