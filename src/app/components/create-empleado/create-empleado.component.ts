@@ -15,6 +15,7 @@ export class CreateEmpleadoComponent implements OnInit {
   loading = false;
   id: string | null;
   titulo = 'Agregar Empleado';
+  txtBoton = 'Agregar';
 
   constructor(
     private fb: FormBuilder,
@@ -42,7 +43,6 @@ export class CreateEmpleadoComponent implements OnInit {
     if (this.createEmpleado.invalid) {
       return;
     }
-
     if (this.id === null) {
       this.agregarEmpleado();
     } else {
@@ -51,6 +51,7 @@ export class CreateEmpleadoComponent implements OnInit {
   }
 
   agregarEmpleado() {
+    this.titulo = 'Agregar Empleado';
     const empleado: any = {
       nombre: this.createEmpleado.value.nombre,
       apellido: this.createEmpleado.value.apellido,
@@ -99,8 +100,10 @@ export class CreateEmpleadoComponent implements OnInit {
   }
 
   esEditar() {
-    this.titulo = 'Editar Empleado';
+    this.titulo = 'Agregar Empleado';
     if (this.id !== null) {
+      this.titulo = 'Editar Empleado';
+      this.txtBoton = 'Actualizar';
       this.loading = true;
       this._EmpleadoService.getEmpleado(this.id).subscribe((data) => {
         this.loading = false;

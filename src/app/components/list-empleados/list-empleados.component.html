@@ -16,10 +16,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let empleado of empleados">
-            <th> {{ empleado.nombre }}</th>
+            <td> {{ empleado.nombre }}</td>
             <td>{{ empleado.apellido }}</td>
             <td>{{ empleado.documento }}</td>
-            <td>{{ empleado.salario | currency}}.000</td>
+            <td>{{ empleado.salario |currency:"COP":"$"}}</td>
             <td>
               <i [routerLink]="['/editEmpleado/', empleado.id]" class="fas fa-edit fa-lg text-info mr-2"></i>
               <i (click)="eliminarEmpleado(empleado.id)" class="fas fa-trash-alt text-danger"></i>
